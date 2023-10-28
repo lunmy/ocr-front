@@ -1,5 +1,9 @@
+// Translations provided by Vuetify
+import {fr} from 'vuetify/locale'
+
 export default defineNuxtConfig({
     ssr: true,
+    lang: 'fr',
     runtimeConfig: {
         public: {
             apiAuthUrl: process.env.BASE_API_AUTH_URL,
@@ -45,7 +49,6 @@ export default defineNuxtConfig({
     vuetify: {
         /* vuetify options */
         vuetifyOptions: {
-            // @TODO: list all vuetify options
         },
 
         moduleOptions: {

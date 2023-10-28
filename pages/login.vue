@@ -38,12 +38,8 @@
             type="password"
             required
         />
-        <button
-            @click.prevent="submitLogin()"
-            class="block w-full bg-secondary-0 mt-4 py-2 rounded-lg text-white font-semibold mb-2">
-          <span v-if="!isLoading">Connexion</span>
-          <v-progress-circular v-else indeterminate size="20"></v-progress-circular>
-        </button>
+        <loading-button label="Connexion" :is-loading="isLoading" @button-clicked="submitLogin"
+        class="w-full"/>
         <div v-if="_errorMessage !== ''"
              class="text-center text-validation-error mx-4">
           <span class="text-lg">{{ _errorMessage }}</span> <br/>
@@ -58,6 +54,7 @@ import {ref} from "vue";
 import {textRule, emailRule} from "@/composables/rules";
 import {setStorage} from "@/composables/storage";
 import jwt_decode from "jwt-decode";
+import LoadingButton from "../components/LoadingButton.vue";
 
 const router = useRouter();
 const {$authApi} = useNuxtApp()
@@ -78,8 +75,17 @@ async function submitLogin() {
       await $authApi.login({username: email.value, password: password.value, app: config.public.applicationId})
           .then(response => {
             setStorage('token', response.data.token)
-            setStorage('user', jwt_decode(response.data.token));
-            router.push('/admin/client');
+            const user = jwt_decode(response.data.token)
+            setStorage('user', user);
+
+            if(user.roles.includes('ROLE_SUPER_ADMIN')) {
+              router.push('/admin/client')
+            } else if(user.roles.includes('ROLE_CLIENT')) {
+              router.push('/account')
+            } else{
+              _errorMessage.value = 'Email ou mot de passe incorrect'
+            }
+
             return response
           }).catch(error => {
             const status = error.response.status

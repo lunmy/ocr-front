@@ -1,5 +1,4 @@
 <template>
-
   <div class="lg:grid grid-cols-12 gap-12">
     <h1 class="text-3xl col-span-10">Clients</h1>
     <div class="col-span-2">
@@ -45,7 +44,8 @@
       density="compact"
       @update:sortBy="sortByF"
       :sort-by.sync="orderBy"
-  >
+  > <template v-slot:item.data-table-expand="{ columns, item }">
+  </template>
     <template v-slot:expanded-row="{ columns, item }">
       <tr>
         <td :colspan="columns.length">
@@ -63,40 +63,52 @@
         </td>
       </tr>
     </template>
-    <template #[`item.name`]="{ item }">
-      {{ item.selectable.firstname }} {{ item.selectable.lastname }}
+    <template #[`item.firstname`]="{ item }">
+      {{ item.selectable.user.firstname }}
+    </template>
+    <template #[`item.lastname`]="{ item }">
+      {{ item.selectable.user.lastname }}
+    </template>
+    <template #[`item.email`]="{ item }">
+      {{ item.selectable.user.email }}
+    </template>
+    <template #[`item.phone`]="{ item }">
+      {{ item.selectable.user.phone }}
     </template>
     <template #[`item.contracts`]="{ item }">
       {{ item.selectable.contracts.length }}
     </template>
     <template #[`item.address`]="{ item }">
-      {{ item.selectable.address.street }}
-      {{ item.selectable.address.complement }}
-      {{ item.selectable.address.zipcode }}
-      {{ item.selectable.address.city }}
+      {{ item.selectable.user.address.street }}
+      {{ item.selectable.user.address.complement }}
+      {{ item.selectable.user.address.zipcode }}
+      {{ item.selectable.user.address.city }}
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon
-          small
-          class="mr-2"
-          @click="details(item)"
-      >
-        mdi-eye
-      </v-icon>
-      <v-icon
-          small
-          class="mr-2"
-          @click="updateClient(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-          small
-          class="mr-2"
-          @click="deleteClient(item)"
-      >
-        mdi-delete
-      </v-icon>
+      <div class="flex justify-end">
+        <v-icon
+            v-if="item.selectable.contracts.length > 0"
+            small
+            class="mr-2"
+            @click="details(item)"
+        >
+          mdi-eye
+        </v-icon>
+        <v-icon
+            small
+            class="mr-2"
+            @click="updateClient(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+            small
+            class="mr-2"
+            @click="deleteClient(item)"
+        >
+          mdi-delete
+        </v-icon>
+      </div>
     </template>
   </v-data-table-server>
 
@@ -159,13 +171,13 @@ const dialogForDelete = ref(false)
 const itemForDelete = ref({})
 
 headers.value = [
-  {title: 'Nom', key: 'lastname'},
-  {title: 'Prénom', key: 'firstname'},
-  {title: 'Email', key: 'email'},
+  {title: 'Nom', key: 'user.lastname'},
+  {title: 'Prénom', key: 'user.firstname'},
+  {title: 'Email', key: 'user.email'},
   {title: 'Adresse', key: 'address', sortable: false},
-  {title: 'Tel', key: 'phone',},
+  {title: 'Tel', key: 'user.phone',},
   {title: 'Contrats', key: 'contracts', sortable: false},
-  {title: 'Actions', key: 'actions', sortable: false},
+  {title: 'Actions', key: 'actions', sortable: false, align: 'end'},
 ];
 
 async function loadItems({page, itemsPerPage, sortBy}) {
@@ -182,8 +194,8 @@ async function loadItems({page, itemsPerPage, sortBy}) {
         totalPages.value = response['hydra:totalItems']
       }
   ).catch((error) => {
-    errorToast('Une erreur est survenue')
-    console.log(error)
+    errorToast('Une erreur est survenue ' + error.response.data.detail)
+    console.log(error.response.data.detail)
   })
   loading.value = false
 }
@@ -197,7 +209,7 @@ watch(customerSearch, (newValue, oldValue) => {
     clearTimeout(timer.value);
   }
   timer.value = setTimeout(() => {
-    loadItems({page: 1, itemsPerPage: 20, sortBy: {key: 'lastname', value: 'ASC'}})
+    loadItems({page: 1, itemsPerPage: 20, sortBy: {key: 'user.lastname', value: 'ASC'}})
   }, 1000)
 }, {deep: true});
 
@@ -207,7 +219,14 @@ function sortByF(key) {
 }
 
 function details(item) {
-  router.push(`/admin/client/${getIdFromIri(item.selectable['@id'])}`)
+
+  const itemIndex = expanded.value.indexOf(item.selectable['@id']);
+
+  if (itemIndex === -1) {
+    expanded.value.push(item.selectable['@id']);
+  } else {
+    expanded.value.splice(itemIndex, 1);
+  }
 }
 
 function updateClient(item) {
@@ -227,8 +246,8 @@ function deleteIt(id) {
         loadItems({})
       }
   ).catch((error) => {
-    errorToast('Une erreur est survenue')
-    console.log(error)
+    errorToast('Une erreur est survenue ' + error.response.data.detail)
+    console.log(error.response.data.detail)
   })
 }
 </script>

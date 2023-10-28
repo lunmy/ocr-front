@@ -859,6 +859,13 @@
     "@sigstore/protobuf-specs" "^0.2.0"
     "tuf-js" "^1.1.7"
 
+"@tato30/vue-pdf@^1.7.4":
+  "integrity" "sha512-YZrnAj0zUrTxrlTIZa3xMa71XNBan4OdW4qiH/cizmIIq5lXMrgvuCN8o0jdUGZi9Ydl+AumnyaoJtUpqKWIDQ=="
+  "resolved" "https://registry.npmjs.org/@tato30/vue-pdf/-/vue-pdf-1.7.4.tgz"
+  "version" "1.7.4"
+  dependencies:
+    "pdfjs-dist" "3.7.107"
+
 "@tootallnate/once@2":
   "integrity" "sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A=="
   "resolved" "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
@@ -4563,10 +4570,23 @@
   "resolved" "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   "version" "4.0.0"
 
+"path2d-polyfill@^2.0.1":
+  "integrity" "sha512-ad/3bsalbbWhmBo0D6FZ4RNMwsLsPpL6gnvhuSaU5Vm7b06Kr5ubSltQQ0T7YKsiJQO+g22zJ4dJKNTXIyOXtA=="
+  "resolved" "https://registry.npmjs.org/path2d-polyfill/-/path2d-polyfill-2.0.1.tgz"
+  "version" "2.0.1"
+
 "pathe@^1.1.0", "pathe@^1.1.1":
   "integrity" "sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q=="
   "resolved" "https://registry.npmjs.org/pathe/-/pathe-1.1.1.tgz"
   "version" "1.1.1"
+
+"pdfjs-dist@3.7.107":
+  "integrity" "sha512-D0pZgz4u8VNjCCXfNCjzeFcenxKFGh2RnGlLIvDHgpT+ZvOlsBlHugpOfmcLQyKk7csHBhPalf+mCM6thiclSQ=="
+  "resolved" "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-3.7.107.tgz"
+  "version" "3.7.107"
+  optionalDependencies:
+    "canvas" "^2.11.2"
+    "path2d-polyfill" "^2.0.1"
 
 "pend@~1.2.0":
   "integrity" "sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg=="
@@ -6235,7 +6255,7 @@
   dependencies:
     "@vue/devtools-api" "^6.5.0"
 
-"vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.3.4", "vue@>=2.7 || >=3", "vue@>=3.2.0", "vue@3.3.5":
+"vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.33", "vue@^3.3.4", "vue@>=2.7 || >=3", "vue@>=3.2.0", "vue@3.3.5":
   "integrity" "sha512-xYpLEGb25yYU1ul9ZhCcavNZ4YW6PS7YTDdDAd0yc/3w69Tra2BwY4EpKguKddfD56QApXQ17XHq+fJJwEP+UQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.3.5.tgz"
   "version" "3.3.5"

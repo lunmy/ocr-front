@@ -4,9 +4,7 @@
         :elevation="2"
         class="!bg-primary-0 !text-white !overflow-visible"
     >
-      <v-app-bar-nav-icon v-if="!drawer" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-nav-icon v-if="drawer" icon="mdi-close" variant="menu"
-                          @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon variant="text" icon="mdi-home" @click.stop="$router.push('/account/contract/new')"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <div
           v-if="user !== null && user !== undefined"
@@ -29,19 +27,6 @@
         </v-menu>
       </div>
     </v-app-bar>
-    <v-navigation-drawer :width="265" v-model="drawer">
-      <v-list-item
-          to="/admin/client"
-          title="Clients"
-          class="border-b border-gray-200 py-4"
-          :class='{ "!bg-secondary-0 !text-white": router.currentRoute.value.fullPath.includes("admin/client") }'></v-list-item>
-     <!-- <v-list-item
-          to="/admin/contracts"
-          title="Contrats"
-          class="py-4"
-          :class='{ "!bg-secondary-0 !text-white": router.currentRoute.value.fullPath === "/admin/contracts" }'></v-list-item>
--->
-    </v-navigation-drawer>
     <v-main>
       <div class="p-10">
           <NuxtPage/>
@@ -53,7 +38,6 @@
 const router = useRouter();
 import {getStorage, setStorage} from "@/composables/storage";
 import vClickOutside from 'v-click-outside'
-
 const drawer = ref(false);
 const menuOpened = ref(false);
 const user = ref('');
@@ -64,10 +48,6 @@ defineComponent({
     clickOutside: vClickOutside.directive,
   },
 });
-
-definePageMeta({
-  middleware: 'admin',
-})
 
 applyStyle(router.currentRoute.value.fullPath);
 

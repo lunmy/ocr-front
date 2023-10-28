@@ -8,7 +8,7 @@
           class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap lg:w-9/12">
         <div class="md:order-1">
           <div class="flex text-primary-admin-0">
-            <img src="/img/full-logo.svg" alt="logo" />
+            <img src="/img/full-logo.svg" alt="logo"/>
           </div>
         </div>
 
@@ -24,26 +24,23 @@
             <li class="md:px-4 md:py-2 hover:text-secondary-0">
               <nuxt-link to="/">Features</nuxt-link>
             </li>
-            <li class="md:px-4 md:py-2 hover:text-secondary-0">
-              <nuxt-link to="/">About</nuxt-link>
+            <li class="md:px-4">
+              <a href="#contact">
+                <button
+                    class="px-4 py-2 bg-primary-0 hover:bg-primary-500 text-gray-50 rounded-lg flex items-center gap-2">
+                  <span>Contact</span>
+                </button>
+              </a>
+            </li>
+            <li class="md:px-4">
+              <nuxt-link to="/login">
+                <button
+                    class="px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 rounded-lg flex items-center gap-2">
+                  <span>Connexion</span>
+                </button>
+              </nuxt-link>
             </li>
           </ul>
-        </div>
-        <div class="order-2 md:order-3">
-          <div class="flex items-center justify-between gap-3">
-            <a href="#contact">
-              <button
-                  class="px-4 py-2 bg-primary-0 hover:bg-primary-500 text-gray-50 rounded-lg flex items-center gap-2">
-                <span>Contact</span>
-              </button>
-            </a>
-            <nuxt-link to="/login">
-              <button
-                  class="px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 rounded-lg flex items-center gap-2">
-                <span>Connexion</span>
-              </button>
-            </nuxt-link>
-          </div>
         </div>
       </div>
     </nav>
@@ -217,7 +214,7 @@
         <v-form ref="contactForm">
           <div class="lg:grid grid-cols-2 gap-12">
             <v-text-field
-                v-model="name"
+                v-model="lastname"
                 label="Nom *"
                 :rules="[textRule]"
                 rounded=50
@@ -226,7 +223,7 @@
                 required
             />
             <v-text-field
-                v-model="firstName"
+                v-model="firstname"
                 label="Prénom *"
                 :rules="[textRule]"
                 rounded=50
@@ -263,12 +260,9 @@
               required
           />
           <div class="flex justify-center">
-            <button
-                type="button"
-                @click.prevent="submitForm"
-                class="px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 flex items-center gap-2 rounded-lg">
-              <span>Envoyer</span>
-            </button>
+            <loading-button
+                class="w-32 px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 flex items-center gap-2 rounded-lg"
+                label="Envoyer" :is-loading="isLoading" @button-clicked="submitForm"/>
           </div>
         </v-form>
       </div>
@@ -285,7 +279,7 @@
         <div class="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
           <div class="md:max-w-md lg:col-span-2 text-center sm:text-left">
             <a href="/" aria-label="Go home" title="Company" class="inline-flex items-center text-primary-0">
-              <img src="/img/full-logo.svg" alt="logo" />
+              <img src="/img/full-logo.svg" alt="logo"/>
             </a>
             <div class="mt-4 lg:max-w-sm">
               <p class="text-sm text-deep-purple-50">
@@ -418,21 +412,26 @@
 <script setup>
 import {textRule, emailRule} from "@/composables/rules";
 import {errorToast, successToast} from "@/composables/toast";
+import LoadingButton from "../components/LoadingButton.vue";
 
 const router = useRouter();
-const name = ref('');
-const firstName = ref('');
+const lastname = ref('');
+const firstname = ref('');
 const email = ref('');
 const subject = ref('');
 const message = ref('');
 const contactForm = ref(null);
+const isLoading = ref(false);
+const _errorMessage = ref('');
 
 function submitForm() {
+  isLoading.value = true;
   const promise = contactForm.value.validate()
   promise.then((success) => {
     if (success.valid) {
       successToast('Your message has been sent')
     }
   })
+  isLoading.value = false;
 }
 </script>

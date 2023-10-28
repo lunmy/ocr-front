@@ -11,3 +11,11 @@ export function phoneRule(value) {
     const regex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/im;
     return  regex.test(value) || "Le numéro de téléphone n'est pas valide !";
 }
+
+export function fileRule(value) {
+    if(value === null){
+        return 'Veuillez sélectionner un fichier !';
+    }
+
+    return  !!value ||  'Type de fichier non pris en charge !';
+}
