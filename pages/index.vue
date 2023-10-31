@@ -5,16 +5,14 @@
         rel="stylesheet">
     <nav class="shadow-lg fixed top-0 bg-white w-full px-8 md:px-auto z-50">
       <div
-          class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap lg:w-9/12">
+          class="mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap lg:w-9/12 px-8 py-4">
         <div class="md:order-1">
           <div class="flex text-primary-admin-0">
             <img src="/img/full-logo.svg" alt="logo"/>
           </div>
         </div>
-
         <div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
-          <ul class="flex font-semibold justify-between">
-
+          <ul class="flex font-semibold justify-between flex-wrap pt-4 md:py-0">
             <li class="md:px-4 md:py-2 text-primary-0">
               <nuxt-link to="/">About</nuxt-link>
             </li>
@@ -24,7 +22,8 @@
             <li class="md:px-4 md:py-2 hover:text-secondary-0">
               <nuxt-link to="/">Features</nuxt-link>
             </li>
-            <li class="md:px-4">
+            <li class="px-4 sm:px-0 block w-full sm:w-auto sm:hidden">&nbsp;</li>
+            <li class="md:px-4 block">
               <a href="#contact">
                 <button
                     class="px-4 py-2 bg-primary-0 hover:bg-primary-500 text-gray-50 rounded-lg flex items-center gap-2">
@@ -46,12 +45,12 @@
     </nav>
 
     <section class="mt-48 px-6">
-      <div class="container lg:w-9/12 mx-auto sm:px-4">
+      <div class="container xl:w-9/12 mx-auto sm:px-4">
         <div class="flex flex-wrap items-center">
-          <div class="md:w-2/5  lg:w-3/5 md:order-1">
+          <div class="sm:w-3/5 mx-auto xl:w-3/5 lg:order-1">
             <img class="max-w-full h-auto" src="/img/illustrations/hero-header.png" alt=""/>
           </div>
-          <div class="md:w-3/5 lg:w-2/5 text-md-start text-center sm:text-left">
+          <div class="xl:w-2/5 mx-auto text-md-start text-center sm:text-left">
             <h1 class="font-bold mb-4 text-3xl sm:text-4xl xl:text-6xl fw-bold">Créez des quiz <br
                 class="block lg:hidden xl:block"/>interactifs.</h1>
             <p class="mt-3 mb-4">
@@ -70,12 +69,12 @@
           </div>
         </div>
         <div class="flex flex-wrap">
-          <div class="md:w-1/2 pr-4 pl-4 mb-4 py-12">
+          <div class="md:w-1/2 py-4 xl:p-12">
             <div
                 class="relative min-w-0 rounded-3xl lg:rounded-0 overflow-hidden overflow-hidden break-words bg-white px-5 md:px-4 lg:py-12 relative">
               <div class="flex flex-col lg:flex-row items-center py-12 sm:py-0">
                 <div class="bg-holder z-index-0 absolute top-0 left-0 w-full h-full overflow-hidden">
-                  <svg class="h-full w-auto scale-150 sm:w-11/12 sm:scale-100 text-cards-0"
+                  <svg class="h-full w-auto xl:scale-100 scale-200 sm:w-11/12 text-cards-0"
                        xmlns="http://www.w3.org/2000/svg"
                        viewBox="0, 0, 400,322.86995515695065">
                     <path
@@ -105,12 +104,12 @@
               </div>
             </div>
           </div>
-          <div class="md:w-1/2 pr-4 pl-4 mb-4 py-12">
+          <div class="md:w-1/2 py-4 xl:p-12">
             <div
                 class="relative min-w-0  rounded-3xl lg:rounded-0 overflow-hidden break-words bg-white px-5 md:px-4 lg:py-12 relative">
               <div class="flex flex-col lg:flex-row items-center py-12 sm:py-0">
                 <div class="bg-holder z-index-0 absolute top-0 left-0 w-full h-full overflow-hidden">
-                  <svg class="h-full w-auto scale-150 sm:w-11/12 sm:scale-100 text-cards-100"
+                  <svg class="h-full w-auto xl:scale-100 scale-200 sm:w-11/12 text-cards-100"
                        xmlns="http://www.w3.org/2000/svg"
                        viewBox="0, 0, 400,322.86995515695065">
                     <path
@@ -136,13 +135,12 @@
               </div>
             </div>
           </div>
-
-          <div class="md:w-1/2 pr-4 pl-4 mb-4 py-12">
+          <div class="md:w-1/2 py-4 xl:p-12">
             <div
                 class="relative min-w-0 rounded-3xl lg:rounded-0 overflow-hidden break-words bg-white px-5 md:px-4 lg:py-12 relative">
               <div class="flex flex-col lg:flex-row items-center py-12 sm:py-0">
                 <div class="bg-holder z-index-0 absolute top-0 left-0 w-full h-full overflow-hidden">
-                  <svg class="h-full w-auto scale-150 sm:w-11/12 sm:scale-100 text-cards-200"
+                  <svg class="h-full w-auto xl:scale-100 scale-200 sm:w-11/12  text-cards-200"
                        xmlns="http://www.w3.org/2000/svg"
                        viewBox="0, 0, 400,322.86995515695065">
                     <path
@@ -168,12 +166,12 @@
               </div>
             </div>
           </div>
-          <div class="md:w-1/2 pr-4 pl-4 mb-4 py-12">
+          <div class="md:w-1/2 py-4 xl:p-12">
             <div
                 class="relative min-w-0 rounded-3xl lg:rounded-0 overflow-hidden break-words bg-white px-5 md:px-4 lg:py-12 relative">
               <div class="flex flex-col lg:flex-row items-center py-12 sm:py-0">
                 <div class="bg-holder z-index-0 absolute top-0 left-0 w-full h-full overflow-hidden">
-                  <svg class="h-full w-auto scale-150 sm:w-11/12 sm:scale-100 text-cards-300"
+                  <svg class="h-full w-auto xl:scale-100 scale-200 sm:w-11/12  text-cards-300"
                        xmlns="http://www.w3.org/2000/svg"
                        viewBox="0, 0, 400,322.86995515695065">
                     <path
@@ -259,7 +257,7 @@
               class="w-full mt-5 rounded-2xl"
               required
           />
-          <div class="flex justify-center">
+          <div class="flex justify-center mt-4">
             <loading-button
                 class="w-32 px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 flex items-center gap-2 rounded-lg"
                 label="Envoyer" :is-loading="isLoading" @button-clicked="submitForm"/>
@@ -267,8 +265,6 @@
         </v-form>
       </div>
     </section>
-
-
     <div class="relative mt-32 bg-primary-900">
       <svg class="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-primary-900" preserveAspectRatio="none"
            viewBox="0 0 1440 54">
@@ -277,7 +273,7 @@
       </svg>
       <div class="px-6 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div class="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
-          <div class="md:max-w-md lg:col-span-2 text-center sm:text-left">
+          <div class="mx-auto md:max-w-md lg:col-span-2 text-center sm:text-left">
             <a href="/" aria-label="Go home" title="Company" class="inline-flex items-center text-primary-0">
               <img src="/img/full-logo.svg" alt="logo"/>
             </a>
@@ -375,11 +371,11 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-col justify-center sm:justify-between pt-5 pb-10 border-t sm:flex-row  text-secondary-0">
-          <p class="text-sm text-center">
+        <div class="flex flex-col justify-center sm:justify-between pb-10 border-t sm:flex-row text-secondary-0 pt-4">
+          <p class="text-sm text-center sm:px-5">
             © Copyright 2020 Lorem Inc. All rights reserved.
           </p>
-          <div class="flex items-center mt-4 space-x-4 sm:mt-0 justify-center">
+          <div class="flex items-center space-x-4 justify-center sm:px-5 sm:!mt-0 my-4">
             <a href="/" class="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
               <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
                 <path
@@ -429,6 +425,7 @@ function submitForm() {
   const promise = contactForm.value.validate()
   promise.then((success) => {
     if (success.valid) {
+
       successToast('Your message has been sent')
     }
   })

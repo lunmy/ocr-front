@@ -27,6 +27,11 @@ export default {
     xxl: '1536px',
   },
   theme: {
+    scale: {
+      '100': '1',
+      '150': '1.5',
+      '200': '2',
+    },
     extend: {
       colors: {
         primary: {
@@ -77,7 +82,7 @@ export default {
       },
       zIndex: {
         '1': '1',
-      }
+      },
     },
   },
   plugins: [],
