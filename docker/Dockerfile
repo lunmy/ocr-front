@@ -16,15 +16,13 @@ WORKDIR /app
 
 # Write config in .env
 RUN touch ./.env
-ARG BASE_API_URL
-ARG API_KEY
-ARG APP_URL
-ARG SOCKET_PORT
+ARG BASE_API_AUTH_URL
+ARG BASE_API_CRM_URL
+ARG APPLICATION_ID
 
-RUN echo "BASE_API_URL=${BASE_API_URL}" >> ./.env; \
-    echo "API_KEY=${API_KEY}" >> ./.env; \
-    echo "APP_URL=${APP_URL}" >> ./.env; \
-    echo "SOCKET_PORT=${SOCKET_PORT}" >> ./.env; \
+RUN echo "BASE_API_AUTH_URL=${BASE_API_AUTH_URL}" >> ./.env; \
+    echo "BASE_API_CRM_URL=${BASE_API_CRM_URL}" >> ./.env; \
+    echo "APPLICATION_ID=${APPLICATION_ID}" >> ./.env; \
     cat ./.env
 
 COPY --from=php_builder /app/ssl  /etc/ssl

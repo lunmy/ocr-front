@@ -1,0 +1,162 @@
+name: Build Test and Push images
+
+on:
+  push:
+    branches:
+      - release
+      - master
+
+env:
+  APP_ENV: test
+  NODE_ENV: production
+  REGISTRY: ghcr.io
+  REGISTRY_ENV: preprod
+  PACKAGE_NAME: ocr-front
+  REGISTRY_PATH: ghcr.io/${{ github.repository }}
+  STACK_ID: 18 # Stack id on portainer side #
+  PROD_STACK_ID: 18 # Stack id on portainer side #
+  ENTRY_POINT_ID: 2 # entry-point id on portainer side #
+  BASE_API_AUTH_URL: ${{ secrets.BASE_API_AUTH_URL }}
+  BASE_API_CRM_URL: ${{ secrets.BASE_API_CRM_URL }}
+  APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Docker build images
+        env:
+          BASE_API_AUTH_URL: ${{ env.BASE_API_AUTH_URL }}
+          APP_CRM_URL: ${{ env.APP_CRM_URL }}
+          APPLICATION_ID: ${{ env.APPLICATION_ID }}
+        run: |
+          docker-compose -f docker-compose.yml build \
+          --build-arg BASE_API_AUTH_URL=${{ env.BASE_API_AUTH_URL }} \
+          --build-arg BASE_API_CRM_URL=${{ env.BASE_API_CRM_URL }} \
+          --build-arg APPLICATION_ID=${{ env.APPLICATION_ID }}
+
+      - name: Run App
+        run: |
+          docker-compose -f docker-compose.yml up  -d
+          docker-compose ps
+
+      - name: Wait for service
+        run: |
+          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q app)")"; do
+            case $status in
+              starting) sleep 1;;
+              healthy) exit 0;;
+              unhealthy)
+                docker-compose ps
+                docker-compose logs app
+                exit 1
+              ;;
+            esac
+          done
+          exit 1
+
+      - name: Check App
+        run: |
+          HTTP_CODE=$(curl -ik -X GET 'http://localhost:3000' -o /dev/null -w '%{http_code}\n' -s)
+          echo $HTTP_CODE
+          if [ "$HTTP_CODE" = "200" ]; then
+              exit 0
+          fi
+          exit 1
+
+      - name: Sets env vars
+        run: |
+          echo "REGISTRY_ENV=prod" >> $GITHUB_ENV
+        if: ${{ github.ref == 'refs/heads/master'}}
+
+      - name: Login to ghcr.io
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker tag/push nuxtjs
+        env:
+          IMAGE_NAME: nuxtjs
+          REGISTRY_PATH_ENV: ${{ env.REGISTRY_PATH }}/${{ env.REGISTRY_ENV }}/nuxtjs
+        run: |
+          docker tag ${{ env.REGISTRY_PATH }}/${{ env.IMAGE_NAME }} ${{ env.REGISTRY_PATH_ENV }}:latest
+          docker tag ${{ env.REGISTRY_PATH }}/${{ env.IMAGE_NAME }} ${{ env.REGISTRY_PATH_ENV }}:${{ github.sha }}
+          docker push ${{ env.REGISTRY_PATH_ENV }}:${{ github.sha }}
+          docker push ${{ env.REGISTRY_PATH_ENV }}:latest
+
+  Deploy:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sets env vars
+        run: |
+          echo "STACK_ID=${{ env.PROD_STACK_ID }}" >> $GITHUB_ENV;
+          echo "REGISTRY_ENV=prod" >> $GITHUB_ENV;
+        if: ${{ github.ref == 'refs/heads/master'}}
+
+      - name: Login to portainer
+        run: |
+          JWT=$(curl -s -X POST '${{ secrets.PORTAINTER_API }}/auth' \
+          --data-raw '{
+              "username": "${{ secrets.PORTAINER_LOGIN }}",
+              "password": "${{ secrets.PORTAINER_PASSWORD }}"
+          }' | jq -r '.jwt')
+          echo "TOKEN=$JWT" >> $GITHUB_ENV
+
+      - name: Stop portainer stack
+        run: |
+          curl -X POST '${{ secrets.PORTAINTER_API }}/stacks/${{ env.STACK_ID }}/stop' \
+          --header 'Authorization: Bearer ${{ env.TOKEN }}' -s
+
+      - name: Delete portainer nuxtjs image
+        env:
+          REGISTRY_PATH_ENV: ${{ env.REGISTRY_PATH }}/${{ env.REGISTRY_ENV }}/nuxtjs:latest
+        run: |
+          HTTP_CODE=$(curl -i -X DELETE '${{ secrets.PORTAINTER_API }}/endpoints/${{ env.ENTRY_POINT_ID }}/docker/images/${{ env.REGISTRY_PATH_ENV }}?force=true' \
+          --header 'Authorization: Bearer ${{ env.TOKEN }}' \
+          --header 'X-Registry-Auth: ${{ secrets.PORTAINTER_REGISTRY_KEY }}' \
+          -o /dev/null -w '%{http_code}\n' -s)
+          echo "HTTP_CODE=$HTTP_CODE"
+      - name: Update portainer nuxtjs image
+        env:
+          REGISTRY_PATH_ENV: ${{ env.REGISTRY_PATH }}/${{ env.REGISTRY_ENV }}/nuxtjs:latest
+        run: |
+          HTTP_CODE=$(curl -i -X POST '${{ secrets.PORTAINTER_API }}/endpoints/${{ env.ENTRY_POINT_ID }}/docker/images/create?fromImage=${{ env.REGISTRY_PATH_ENV }}' \
+          --header 'Authorization: Bearer ${{ env.TOKEN }}' \
+          --header 'X-Registry-Auth: ${{ secrets.PORTAINTER_REGISTRY_KEY }}' \
+          -o /dev/null -w '%{http_code}\n' -s)
+          if [ "$HTTP_CODE" = "200" ]; then
+              exit 0
+          fi
+          echo "HTTP_CODE=$HTTP_CODE"
+          exit 1
+
+      - name: Start portainer stack
+        run: |
+          HTTP_CODE=$(curl -i -X POST '${{ secrets.PORTAINTER_API }}/stacks/${{ env.STACK_ID }}/start' \
+          --header 'Authorization: Bearer ${{ env.TOKEN }}' \
+          -o /dev/null -w '%{http_code}\n' -s)
+          if [ "$HTTP_CODE" = "200" ]; then
+              exit 0
+          fi
+          exit 1
+
+  Clean:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove old packages
+        uses: snok/container-retention-policy@v1
+        env:
+          PACKAGE_PATH: ${{ env.PACKAGE_NAME }}/${{ env.REGISTRY_ENV }}
+        with:
+          image-names: ${{ env.PACKAGE_PATH }}/nuxtjs
+          cut-off: One hour ago UTC
+          keep-at-least: 3
+          account-type: personal
+          token: ${{ secrets.PACKAGE_TOKEN }}
