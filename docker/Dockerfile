@@ -29,7 +29,6 @@ COPY --from=php_builder /app/ssl  /etc/ssl
 COPY docker/health-check.js app.vue tailwind.config.js ./
 COPY nuxt.config.js ./
 COPY package.json ./
-COPY yarn.lock ./
 COPY assets assets/
 COPY components components/
 COPY composables composables/
@@ -38,26 +37,25 @@ COPY middleware middleware/
 COPY pages pages/
 COPY plugins plugins/
 COPY public public/
-COPY server server/
 COPY store store/
 COPY ssl ssl/
 RUN mkdir -p dist
 
 RUN set -eux; \
-  yarn install \
+  npm install \
   --prefer-offline \
   --frozen-lockfile \
   --non-interactive \
   --production=false
 
-RUN yarn build
+RUN npm run build
 
 ARG NODE_ENV
 ENV NODE_ENV = ${NODE_ENV}
 
 RUN set -eux; \
 	if [ "${NODE_ENV}" = 'production' ]; then \
-    NODE_ENV=production yarn install \
+    NODE_ENV=production npm install \
     --prefer-offline \
     --pure-lockfile \
     --non-interactive \

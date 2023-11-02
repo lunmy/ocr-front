@@ -33,18 +33,19 @@ jobs:
           APP_CRM_URL: ${{ env.APP_CRM_URL }}
           APPLICATION_ID: ${{ env.APPLICATION_ID }}
         run: |
-          docker-compose -f docker-compose.yml build \
+          docker-compose -f docker-compose-prod.yml build \
           --build-arg BASE_API_AUTH_URL=${{ env.BASE_API_AUTH_URL }} \
           --build-arg BASE_API_CRM_URL=${{ env.BASE_API_CRM_URL }} \
           --build-arg APPLICATION_ID=${{ env.APPLICATION_ID }}
 
       - name: Run App
         run: |
-          docker-compose -f docker-compose.yml up  -d
-          docker-compose ps
+          docker-compose -f docker-compose-prod.yml up -d
+          docker-compose -f docker-compose-prod.yml ps
 
       - name: Wait for service
         run: |
+          sleep 5
           while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q app)")"; do
             case $status in
               starting) sleep 1;;
