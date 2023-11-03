@@ -19,7 +19,7 @@ export default defineNuxtPlugin((NuxtApp) =>{
     })
 
     let apiAuth = axios.create({
-        baseUrl: config.public.apiAuthUrl,
+        baseUrl: config.public.apiAuthUrl + (process.env.NODE_ENV === 'production' ? '' : ':444'),
     });
 
 
