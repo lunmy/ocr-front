@@ -1,5 +1,3 @@
-import {setStorage, getStorage} from "@/composables/storage";
-
 export default ({axios, baseUrl}) => ({
    /****************************************************************************
    * Email

@@ -11,11 +11,6 @@ import ClientForm from "@/components/ClientForm.vue";
 const {$crmApi} = useNuxtApp()
 const router = useRouter();
 
-definePageMeta({
-  middleware: 'auth',
-  layout: 'admin'
-})
-
 const loading=ref(false)
 const client=ref({
   gender: 'MR',

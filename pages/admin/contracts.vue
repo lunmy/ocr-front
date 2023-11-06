@@ -21,7 +21,7 @@
       :pageText="'{0}-{1} de {2}'"
   >
     <template v-slot:item.client="{ columns, item }">
-      {{ item.selectable.client.name }}
+      {{ item.client.name }}
     </template>
 
     <template v-slot:item.actions="{ item }">
@@ -52,11 +52,6 @@
 <script setup>
 
 import { VDataTable } from 'vuetify/labs/VDataTable'
-
-definePageMeta({
-  //middleware: 'auth',
-  layout: 'admin'
-})
 
 const expanded = ref([]);
 const singleExpand = ref(false);

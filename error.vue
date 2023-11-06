@@ -6370,6 +6370,7 @@ onMounted(() => {
     </div>
   <div v-else-if="error.statusCode === 500">
     Erreur 500
+    {{ error }}
   </div>
 </template>
 <style lang="scss">

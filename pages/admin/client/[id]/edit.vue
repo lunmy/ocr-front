@@ -56,10 +56,6 @@ const {$crmApi} = useNuxtApp()
 const router = useRouter();
 const route = useRoute()
 
-definePageMeta({
-  middleware: 'auth',
-  layout: 'admin'
-})
 
 const loading = ref(false)
 const client=ref(null)

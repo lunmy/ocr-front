@@ -53,8 +53,6 @@
 import {errorToast} from "@/composables/toast";
 import {VSkeletonLoader} from 'vuetify/labs/VSkeletonLoader'
 import moment from 'moment'
-import { VuePDF, usePDF } from '@tato30/vue-pdf'
-
 
 const {$crmApi} = useNuxtApp()
 const router = useRouter();

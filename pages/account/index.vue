@@ -99,11 +99,6 @@ import moment from 'moment'
 const router = useRouter();
 const {$crmApi} = useNuxtApp()
 
-definePageMeta({
-  layout: 'client'
-})
-
-
 const page = ref(1)
 const orderBy = ref([{key: 'startDate', order: 'ASC'}])
 const customerSearch = ref('')

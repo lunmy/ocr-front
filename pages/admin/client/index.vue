@@ -50,7 +50,7 @@
       <tr>
         <td :colspan="columns.length">
           <v-list>
-            <v-list-item v-for="(itm, index) in item.selectable.contracts" :key="index">
+            <v-list-item v-for="(itm, index) in item.contracts" :key="index">
               <v-list-item-content>
                 <v-list-item-title>Contrat</v-list-item-title>
                 <v-list-item-subtitle>
@@ -64,30 +64,30 @@
       </tr>
     </template>
     <template #[`item.firstname`]="{ item }">
-      {{ item.selectable.user.firstname }}
+      {{ item.user.firstname }}
     </template>
     <template #[`item.lastname`]="{ item }">
-      {{ item.selectable.user.lastname }}
+      {{ item.user.lastname }}
     </template>
     <template #[`item.email`]="{ item }">
-      {{ item.selectable.user.email }}
+      {{ item.user.email }}
     </template>
     <template #[`item.phone`]="{ item }">
-      {{ item.selectable.user.phone }}
+      {{ item.user.phone }}
     </template>
     <template #[`item.contracts`]="{ item }">
-      {{ item.selectable.contracts.length }}
+      {{ item.contracts.length }}
     </template>
     <template #[`item.address`]="{ item }">
-      {{ item.selectable.user.address.street }}
-      {{ item.selectable.user.address.complement }}
-      {{ item.selectable.user.address.zipcode }}
-      {{ item.selectable.user.address.city }}
+      {{ item.user.address.street }}
+      {{ item.user.address.complement }}
+      {{ item.user.address.zipcode }}
+      {{ item.user.address.city }}
     </template>
     <template v-slot:item.actions="{ item }">
       <div class="flex justify-end">
         <v-icon
-            v-if="item.selectable.contracts.length > 0"
+            v-if="item.contracts.length > 0"
             small
             class="mr-2"
             @click="details(item)"
@@ -152,12 +152,6 @@ import moment from 'moment'
 const router = useRouter();
 const {$crmApi} = useNuxtApp()
 
-definePageMeta({
-  middleware: 'auth',
-  layout: 'admin'
-})
-
-
 const page = ref(1)
 const orderBy = ref([{key: 'lastname', order: 'ASC'}])
 const customerSearch = ref('')
@@ -220,21 +214,21 @@ function sortByF(key) {
 
 function details(item) {
 
-  const itemIndex = expanded.value.indexOf(item.selectable['@id']);
+  const itemIndex = expanded.value.indexOf(item['@id']);
 
   if (itemIndex === -1) {
-    expanded.value.push(item.selectable['@id']);
+    expanded.value.push(item['@id']);
   } else {
     expanded.value.splice(itemIndex, 1);
   }
 }
 
 function updateClient(item) {
-  router.push(`/admin/client/${getIdFromIri(item.selectable['@id'])}/edit`)
+  router.push(`/admin/client/${getIdFromIri(item['@id'])}/edit`)
 }
 
 function deleteClient(item) {
-  itemForDelete.value = item.selectable
+  itemForDelete.value = item
   dialogForDelete.value = true
 }
 

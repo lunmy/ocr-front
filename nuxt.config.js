@@ -1,4 +1,5 @@
 // Translations provided by Vuetify
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import {fr} from 'vuetify/locale'
 
 export default defineNuxtConfig({
@@ -33,38 +34,29 @@ export default defineNuxtConfig({
     },
     build: {
         transpile: ['vuetify'],
-        postcss: {
-            postcssOptions: {
-                plugins: {
-                    tailwindcss: {},
-                    autoprefixer: {},
-                },
-            },
-        },
     },
     modules: [
-        '@invictus.codes/nuxt-vuetify',
-        '@sidebase/nuxt-pdf',
-    ],
-    vuetify: {
-        /* vuetify options */
-        vuetifyOptions: {
+        (_options, nuxt) => {
+            nuxt.hooks.hook('vite:extendConfig', (config) => {
+                // @ts-expect-error
+                config.plugins.push(vuetify({ autoImport: true }))
+            })
         },
-
-        moduleOptions: {
-            /* nuxt-vuetify module options */
-            treeshaking: true,
-            useIconCDN: true,
-
-            /* vite-plugin-vuetify options */
-            styles: true,
-            autoImport: true | false,
-            useVuetifyLabs: true | false,
-        }
-    },
+        '@pinia/nuxt',
+        '@pinia-plugin-persistedstate/nuxt',
+    ],
     vite: {
+        optimizeDeps: { exclude: ["fsevents"] },
         define: {
             'process.env.DEBUG': false,
+        },
+        ssr: {
+            noExternal: ["vuetify"],
+        },
+        vue: {
+            template: {
+                transformAssetUrls,
+            },
         },
     },
 })

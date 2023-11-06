@@ -5,9 +5,4 @@
 
 import {errorToast} from "@/composables/toast";
 import moment from 'moment'
-
-definePageMeta({
-  middleware: 'auth',
-  layout: 'admin'
-})
 </script>

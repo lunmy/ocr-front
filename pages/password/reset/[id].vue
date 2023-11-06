@@ -74,7 +74,7 @@ async function submitPassword() {
       isLoading.value = true
       await $authApi.resetPassword(credentials).then((response) => {
         successToast('Le mot de passe a bien été modifié')
-        router.push('/login')
+        //router.push('/login')
       }).catch((error) => {
         errorToast('Une erreur est survenue')
         console.log(error)

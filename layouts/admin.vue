@@ -50,24 +50,22 @@
   </v-app>
 </template>
 <script setup>
-const router = useRouter();
-import {getStorage, setStorage} from "@/composables/storage";
+
+import { useAuthStore } from '~/store/auth';
 import vClickOutside from 'v-click-outside'
 
+const router = useRouter();
 const drawer = ref(false);
 const menuOpened = ref(false);
-const user = ref('');
 const dropdown = ref(null);
-user.value = getStorage('user');
+const { user } = storeToRefs(useAuthStore());
+const { logUserOut } = useAuthStore();
+
 defineComponent({
   directives: {
     clickOutside: vClickOutside.directive,
   },
 });
-
-definePageMeta({
-  middleware: 'admin',
-})
 
 applyStyle(router.currentRoute.value.fullPath);
 
@@ -98,8 +96,7 @@ const onClickOutside = (event) => {
 };
 
 function logout() {
-  setStorage('token', null);
-  setStorage('user', null);
+  logUserOut();
   router.push('/login');
 }
 

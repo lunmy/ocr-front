@@ -1,25 +1,28 @@
 import crmApi from '@/plugins/apis/crm'
 import authApi from '@/plugins/apis/auth'
 import axios from "axios";
-import {getStorage} from "@/composables/storage";
+import { useAuthStore } from '~/store/auth';
+
 
 export default defineNuxtPlugin((NuxtApp) =>{
     const config = useRuntimeConfig()
+
+
     let apiCrm = axios.create({
         baseUrl: config.public.apiCrmUrl,
     });
 
     apiCrm.interceptors.request.use((config) => {
         const nuxtConfig = useRuntimeConfig()
-        const token = getStorage('token');
-        if(token !== undefined && token !== null && token !== '') {
-            config.headers['Authorization'] = `Bearer ${token}`
+        const { token } = storeToRefs(useAuthStore());
+        if(token.value !== undefined && token.value !== null && token.value !== '') {
+            config.headers['Authorization'] = `Bearer ${token.value}`
         }
         return config
     })
 
     let apiAuth = axios.create({
-        baseUrl: config.public.apiAuthUrl + (process.env.NODE_ENV === 'production' ? '' : ':444'),
+        baseUrl: config.public.apiAuthUrl,
     });
 
 

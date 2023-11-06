@@ -64,16 +64,16 @@
       </tr>
     </template>
     <template #[`item.name`]="{ item }">
-      {{ item.selectable.firstname }} {{ item.selectable.lastname }}
+      {{ item.firstname }} {{ item.lastname }}
     </template>
     <template #[`item.contracts`]="{ item }">
-      {{ item.selectable.contracts.length }}
+      {{ item.contracts.length }}
     </template>
     <template #[`item.address`]="{ item }">
-      {{ item.selectable.address.street }}
-      {{ item.selectable.address.complement }}
-      {{ item.selectable.address.zipcode }}
-      {{ item.selectable.address.city }}
+      {{ item.address.street }}
+      {{ item.address.complement }}
+      {{ item.address.zipcode }}
+      {{ item.address.city }}
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
@@ -140,12 +140,6 @@ import moment from 'moment'
 const router = useRouter();
 const {$crmApi} = useNuxtApp()
 
-definePageMeta({
-  middleware: 'auth',
-  layout: 'admin'
-})
-
-
 const page = ref(1)
 const orderBy = ref([{key: 'lastname', order: 'ASC'}])
 const customerSearch = ref('')
@@ -207,15 +201,15 @@ function sortByF(key) {
 }
 
 function details(item) {
-  router.push(`/admin/client/${getIdFromIri(item.selectable['@id'])}`)
+  router.push(`/admin/client/${getIdFromIri(item['@id'])}`)
 }
 
 function updateClient(item) {
-  router.push(`/admin/client/${getIdFromIri(item.selectable['@id'])}/edit`)
+  router.push(`/admin/client/${getIdFromIri(item['@id'])}/edit`)
 }
 
 function deleteClient(item) {
-  itemForDelete.value = item.selectable
+  itemForDelete.value = item
   dialogForDelete.value = true
 }
 
