@@ -1,6 +1,6 @@
 export default ({axios, baseUrl}) => ({
     port(){
-        return process.env.NODE_ENV === 'production' ? ':444' : ':444'
+        return process.env.NODE_ENV === 'production' ? '' : ':444'
     },
     async login(credentials) {
         return await axios.post(`${baseUrl}${this.port()}/auth`, credentials)

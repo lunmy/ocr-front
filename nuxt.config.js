@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     },
     build: {
         transpile: ['vuetify'],
+        postcss: false,
     },
     modules: [
         (_options, nuxt) => {
