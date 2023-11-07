@@ -10,6 +10,7 @@ export default defineNuxtConfig({
             apiAuthUrl: process.env.BASE_API_AUTH_URL,
             apiCrmUrl: process.env.BASE_API_CRM_URL,
             applicationId: process.env.APPLICATION_ID,
+            apiKey: process.env.API_KEY
         },
     },
 

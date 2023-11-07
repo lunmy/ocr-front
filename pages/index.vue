@@ -13,29 +13,26 @@
         </div>
         <div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
           <ul class="flex font-semibold justify-between flex-wrap pt-4 md:py-0">
-            <li class="md:px-4 md:py-2 text-primary-0">
-              <nuxt-link to="/">About</nuxt-link>
+            <li class="md:px-4 py-2 hover:text-secondary-0">
+              <nuxt-link to="/">Usages</nuxt-link>
             </li>
-            <li class="md:px-4 md:py-2 hover:text-secondary-0">
-              <nuxt-link to="/">Help</nuxt-link>
-            </li>
-            <li class="md:px-4 md:py-2 hover:text-secondary-0">
-              <nuxt-link to="/">Features</nuxt-link>
-            </li>
-            <li class="px-4 sm:px-0 block w-full sm:w-auto sm:hidden">&nbsp;</li>
-            <li class="md:px-4 block">
-              <a href="#contact">
-                <button
-                    class="px-4 py-2 bg-primary-0 hover:bg-primary-500 text-gray-50 rounded-lg flex items-center gap-2">
-                  <span>Contact</span>
-                </button>
-              </a>
+            <li class="md:px-4 py-2 hover:text-secondary-0">
+              <a href="#contact">Contact</a>
             </li>
             <li class="md:px-4">
               <nuxt-link to="/login">
                 <button
                     class="px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 rounded-lg flex items-center gap-2">
-                  <span>Connexion</span>
+                  <span class="hidden md:block">Connexion</span>
+                  <span class="md:hidden block">
+                     <v-icon
+                         small
+                         class="mr-2"
+                         color="white"
+                     >
+                      mdi-login
+                    </v-icon>
+                  </span>
                 </button>
               </nuxt-link>
             </li>
@@ -47,15 +44,12 @@
     <section class="mt-48 px-6">
       <div class="container xl:w-9/12 mx-auto sm:px-4">
         <div class="flex flex-wrap items-center">
+          <div class="xl:w-2/5 mx-auto text-md-start text-center sm:text-left">
+            <h1 class="font-bold mb-4 text-3xl sm:text-4xl xl:text-6xl fw-bold">Transformez vos contrats en données
+              précieuses avec notre plateforme innovante !</h1>
+          </div>
           <div class="sm:w-3/5 mx-auto xl:w-3/5 lg:order-1">
             <img class="max-w-full h-auto" src="/img/illustrations/hero-header.png" alt=""/>
-          </div>
-          <div class="xl:w-2/5 mx-auto text-md-start text-center sm:text-left">
-            <h1 class="font-bold mb-4 text-3xl sm:text-4xl xl:text-6xl fw-bold">Créez des quiz <br
-                class="block lg:hidden xl:block"/>interactifs.</h1>
-            <p class="mt-3 mb-4">
-              Avec le mode quiz interactif,<br/>un adminstrateur voit en temps rééel les réponses<br/>
-              de chaque participant et gère le déroulement du quiz.</p>
           </div>
         </div>
       </div>
@@ -88,17 +82,16 @@
                   <img class="max-w-full h-auto" src="/img/illustrations/feature-search.png" alt=""/>
                 </div>
                 <div class="lg:w-2/3 pr-4 pl-4 text-md-start z-1">
-                  <div class="flex-auto p-6 px-0 text-center lg:text-left">
-                    <h4 class="text-2xl mb-3 md:pt-12">Évaluations de formation<br/> <b>personnalisées</b></h4>
-                    <p class="mb-0">Offrez une expérience de formation interactive <br/>
-                      pour votre entreprises en utilisant<br/>
-                      <b>un quiz interactif</b>. <br/><br/>Les administrateurs peuvent <br/>
-                      créer des évaluations après <b>chaque session<br/>
-                        de formation</b>, garantissant ainsi que<br/>
-                      <b>tous les participants</b> ont acquis les connaissances <br/>
-                      nécessaires avant de passer à la question suivante.
-                      <br/><br/>Mesurez l'efficacité de vos programmes <br/>
-                      de formation et ajustez-les en conséquence.</p>
+                  <div class="flex-auto p-6 px-0 text-center lg:text-left px-4">
+                    <h4 class="text-2xl mb-3 md:pt-12">Gagnez du temps précieux</h4>
+                    <p class="mb-0">Grâce à notre solution de <b>reconnaissance de texte</b>
+                      (OCR) et à l'<b>intelligence artificielle intégrée</b>,
+                      vous ne passerez plus des heures à saisir
+                      manuellement les données de chaque contrat.
+                      <br/><br/>
+                      Vous pouvez <b>automatiser le processus</b> de conversion
+                      de contrats en informations exploitables,
+                      vous permettant ainsi de consacrer votre temps à des tâches plus stratégiques.</p>
                   </div>
                 </div>
               </div>
@@ -121,15 +114,14 @@
                   <img class="max-w-full h-auto" src="/img/illustrations/feature-security.png" alt=""/>
                 </div>
                 <div class="lg:w-2/3 pr-4 pl-4 text-md-start z-1">
-                  <div class="flex-auto p-6 px-0 text-center lg:text-left">
-                    <h4 class="text-2xl mb-3 md:pt-12">Tests de connaissances <br/><b>sans triche</b></h4>
-                    <p class="mb-0">Simplifiez le processus d'examen
-                      <b>pour les <br/> écoles et les universités</b> grâce à notre <br/>
-                      plateforme de quiz en ligne. <br/><br/>Créez des
-                      examens <b>sécurisés</b> où les étudiants <br/>répondent en même temps à chaque question. <br/>
-                      <br/>Réduisez les risques de tricherie tout en offrant <br/>une expérience d'examen <b>synchronisée
-                        <br/>
-                        et équitable.</b></p>
+                  <div class="flex-auto p-6 px-0 text-center lg:text-left px-4">
+                    <h4 class="text-2xl mb-3 md:pt-12">Précision inégalée</h4>
+                    <p class="mb-0">Notre technologie de pointe garantit une
+                      <b>précision inégalée</b> dans l'extraction des
+                      données clés de vos contrats. <br/><br/>
+                      Vous n'avez plus à craindre les erreurs humaines ou les omissions, car notre <b>intelligence
+                        artificielle</b> extrait les informations avec une <b>fiabilité</b> exceptionnelle, vous
+                      assurant des <b>décisions éclairées</b>.</p>
                   </div>
                 </div>
               </div>
@@ -152,15 +144,16 @@
                   <img class="max-w-full h-auto" src="/img/illustrations/feature-print.png" alt=""/>
                 </div>
                 <div class="lg:w-2/3 pr-4 pl-4 text-md-start z-1">
-                  <div class="flex-auto p-6 px-0 text-center lg:text-left">
-                    <h4 class="text-2xl mb-3 md:pt-12">Évaluations de <br/><b>compétences précises</b></h4>
-                    <p class="mb-0"><b>Optimisez vos processus de recrutement</b> <br/>
-                      en utilisant notre plateforme de quiz. <br/>
-                      <br/><b>Évaluez les compétences techniques</b> <br/>des candidats <b>en amont des entretiens.</b>
+                  <div class="flex-auto p-6 px-0 text-center lg:text-left px-4">
+                    <h4 class="text-2xl mb-3 md:pt-12">Analyse approfondie des contrats</h4>
+                    <p class="mb-0">En plus d'<b>extraire des données</b> telles
+                      que la date de début, la date de fin et le montant du contrat,
+                      notre IA est capable d'<b>analyser le contenu des contrats</b>
+                      pour repérer des <b>clauses importantes</b>, des <b>termes juridiques</b> et d'autres <b>informations
+                        cruciales</b>.<br/>
                       <br/>
-                      <br/>Une fois que tous les candidats <br/>ont répondu à une question, passez à la suivante.
-                      <br/><br/><b>Simplifiez</b> la sélection en <b>identifiant rapidement <br/>
-                        les meilleurs talents</b>.</p>
+                      Cela vous permet d'<b>identifier des risques</b> potentiels et d'<b>optimiser vos négociations</b>.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -179,21 +172,21 @@
                         stroke="none" fill="currentColor" fill-rule="evenodd"></path>
                   </svg>
                 </div>
-                <div class="lg:w-1/3 z-1">
+                <div class="lg:w-1/3 z-1 h-full">
                   <img class="max-w-full h-auto" src="/img/illustrations/feature-hour.png" alt=""/>
                 </div>
                 <div class="lg:w-2/3 pr-4 pl-4 text-md-start z-1">
                   <div class="flex-auto p-6 px-0 text-center lg:text-left">
-                    <h4 class="text-2xl mb-3 md:pt-12">Renforcez <br/>
-                      <b>l'esprit d'équipe</b></h4>
-                    <p class="mb-0">Donnez une <b>nouvelle dimension</b> à <br/>
-                      vos événements de team building <br/>
-                      avec notre solution de quiz en ligne. <br/><br/>
-                      <b>Encouragez la collaboration</b> en permettant <br/>
-                      aux équipes de répondre ensemble aux questions. <br/>
-                      L'animateur passe à la question suivante dès que <br/>
-                      toutes les équipes ont participé. <br/><br/>
-                      <b>Créez des souvenirs partagés</b> tout en renforçant <br/>les liens au sein de votre équipe.</p>
+                    <h4 class="text-2xl mb-3 md:pt-12">Notifications automatiques</h4>
+                    <p class="mb-0">
+                      Notre plateforme envoie des <b>notifications</b>
+                      à chaque <b>date importante</b> du contrat,
+                      vous tenant informé des <b>échéances</b>, des <b>renouvellements</b>, ou d'autres <b>événements
+                      clés</b>.
+                      <br/><br/>
+                      Vous ne <b>manquerez jamais</b> une <b>date cruciale</b>, vous aidant ainsi à respecter vos <b>obligations
+                      contractuelles</b>
+                      et à prendre des <b>décisions opportunes</b>.</p>
                   </div>
                 </div>
               </div>
@@ -372,10 +365,10 @@
           </div>
         </div>
         <div class="flex flex-col justify-center sm:justify-between pb-10 border-t sm:flex-row text-secondary-0 pt-4">
-          <p class="text-sm text-center sm:px-5">
+          <p class="text-sm text-center py-5">
             © Copyright 2020 Lorem Inc. All rights reserved.
           </p>
-          <div class="flex items-center space-x-4 justify-center sm:px-5 sm:!mt-0 my-4">
+          <div class="flex items-center space-x-4 justify-center px-5 py-5">
             <a href="/" class="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
               <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
                 <path
@@ -411,11 +404,12 @@ import {errorToast, successToast} from "@/composables/toast";
 import LoadingButton from "../components/LoadingButton.vue";
 
 const router = useRouter();
-const lastname = ref('');
-const firstname = ref('');
-const email = ref('');
-const subject = ref('');
-const message = ref('');
+const {$crmApi} = useNuxtApp()
+const lastname = ref('de filippi');
+const firstname = ref('anthony');
+const email = ref('adefilippi@gmail.com');
+const subject = ref('Un test');
+const message = ref('Un test');
 const contactForm = ref(null);
 const isLoading = ref(false);
 const _errorMessage = ref('');
@@ -425,8 +419,22 @@ function submitForm() {
   const promise = contactForm.value.validate()
   promise.then((success) => {
     if (success.valid) {
-
-      successToast('Your message has been sent')
+      _errorMessage.value = ''
+      isLoading.value = true
+      $crmApi.contact({
+        type: "CONTACT",
+        to: email.value,
+        subject: subject.value,
+        message : message.value,
+        fullname: lastname.value + ' ' + firstname.value
+      }).then((response) => {
+        successToast('Your message has been sent')
+      }).catch((error) => {
+        errorToast('Une erreur est survenue')
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
     }
   })
   isLoading.value = false;

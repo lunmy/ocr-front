@@ -13,7 +13,7 @@ export default defineNuxtPlugin((NuxtApp) =>{
     });
 
     apiCrm.interceptors.request.use((config) => {
-        const nuxtConfig = useRuntimeConfig()
+
         const { token } = storeToRefs(useAuthStore());
         if(token.value !== undefined && token.value !== null && token.value !== '') {
             config.headers['Authorization'] = `Bearer ${token.value}`

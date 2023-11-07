@@ -8,6 +8,7 @@ function rgbaToHex(r, g, b, a) {
   return `rgb(${red},${green},${blue})`
 }
 export default {
+  important: false,
   content: [
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',

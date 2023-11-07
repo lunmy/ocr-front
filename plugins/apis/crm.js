@@ -75,7 +75,21 @@ export default ({axios, baseUrl}) => ({
     async deleteContract(id) {
         return await this.delete(id)
     },
-
+    /****************************************************************************
+     * Email
+     *****************************************************************************/
+    async contact(email) {
+        const nuxtConfig = useRuntimeConfig()
+        const request = await axios.post(`${baseUrl}/email/contact`, email, {
+            headers: {
+                'X-Api-Key': nuxtConfig.public.apiKey,
+                'Content-Type': 'application/json',
+            },
+        })
+        if (request.status === 201) {
+            return request.data
+        }
+    },
     /****************************************************************************
      * General
     *****************************************************************************/

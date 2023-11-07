@@ -13,8 +13,6 @@ import * as directives from 'vuetify/directives';
 
 /* Add build-in icon used internally in various components */
 /* Described in https://next.vuetifyjs.com/en/features/icon-fonts/ */
-import { mdi, aliases as allAliases } from 'vuetify/iconsets/mdi-svg';
-const aliases = allAliases;
 
 
 export default defineNuxtPlugin((app) => {
@@ -27,8 +25,6 @@ export default defineNuxtPlugin((app) => {
         directives,
         icons: {
             defaultSet: 'mdi',
-            aliases,
-            sets: { mdi }
         }
     })
     app.vueApp.use(vuetify)

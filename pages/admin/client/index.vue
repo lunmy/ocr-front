@@ -188,8 +188,8 @@ async function loadItems({page, itemsPerPage, sortBy}) {
         totalPages.value = response['hydra:totalItems']
       }
   ).catch((error) => {
-    errorToast('Une erreur est survenue ' + error.response.data.detail)
-    console.log(error.response.data.detail)
+    console.log(error)
+    //errorToast('Une erreur est survenue ' + error)
   })
   loading.value = false
 }

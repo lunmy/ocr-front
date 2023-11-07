@@ -19,10 +19,12 @@ RUN touch ./.env
 ARG BASE_API_AUTH_URL
 ARG BASE_API_CRM_URL
 ARG APPLICATION_ID
+ARG API_KEY
 
 RUN echo "BASE_API_AUTH_URL=${BASE_API_AUTH_URL}" >> ./.env; \
     echo "BASE_API_CRM_URL=${BASE_API_CRM_URL}" >> ./.env; \
     echo "APPLICATION_ID=${APPLICATION_ID}" >> ./.env; \
+    echo "API_KEY=${API_KEY}" >> ./.env; \
     cat ./.env
 
 COPY --from=php_builder /app/ssl  /etc/ssl

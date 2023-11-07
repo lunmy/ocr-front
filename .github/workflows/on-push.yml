@@ -19,6 +19,7 @@ env:
   BASE_API_AUTH_URL: ${{ secrets.BASE_API_AUTH_URL }}
   BASE_API_CRM_URL: ${{ secrets.BASE_API_CRM_URL }}
   APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+  API_KEY: ${{ secrets.API_KEY }}
 
 jobs:
   Build:
@@ -32,11 +33,13 @@ jobs:
           BASE_API_AUTH_URL: ${{ env.BASE_API_AUTH_URL }}
           APP_CRM_URL: ${{ env.APP_CRM_URL }}
           APPLICATION_ID: ${{ env.APPLICATION_ID }}
+          API_KEY: ${{ env.API_KEY }}
         run: |
           docker-compose -f docker-compose-prod.yml build \
           --build-arg BASE_API_AUTH_URL=${{ env.BASE_API_AUTH_URL }} \
           --build-arg BASE_API_CRM_URL=${{ env.BASE_API_CRM_URL }} \
-          --build-arg APPLICATION_ID=${{ env.APPLICATION_ID }}
+          --build-arg APPLICATION_ID=${{ env.APPLICATION_ID }} \
+          --build-arg API_KEY=${{ env.API_KEY }}
 
       - name: Run App
         run: |
