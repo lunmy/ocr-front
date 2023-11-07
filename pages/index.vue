@@ -5,19 +5,23 @@
         rel="stylesheet">
     <nav class="shadow-lg fixed top-0 bg-white w-full px-8 md:px-auto z-50">
       <div
-          class="mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap lg:w-9/12 px-8 py-4">
+          class="mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap lg:w-9/12 py-4">
         <div class="md:order-1">
           <div class="flex text-primary-admin-0">
-            <img src="/img/full-logo.svg" alt="logo"/>
+            <span class="cursor-pointer" @click.prevent="scrollTo('home', 0)"><img src="/img/full-logo.svg" alt="logo"/></span>
+
           </div>
         </div>
         <div class="text-gray-500 order-3 w-full md:w-auto md:order-2">
           <ul class="flex font-semibold justify-between flex-wrap pt-4 md:py-0">
             <li class="md:px-4 py-2 hover:text-secondary-0">
-              <nuxt-link to="/">Usages</nuxt-link>
+            <span class="cursor-pointer" @click.prevent="scrollTo('home', 0)">Accueil</span>
+          </li>
+            <li class="md:px-4 py-2 hover:text-secondary-0">
+              <span class="cursor-pointer" @click.prevent="scrollTo('usages')">Usages</span>
             </li>
             <li class="md:px-4 py-2 hover:text-secondary-0">
-              <a href="#contact">Contact</a>
+              <span class="cursor-pointer" @click.prevent="scrollTo('contact')">Contact</span>
             </li>
             <li class="md:px-4">
               <nuxt-link to="/login">
@@ -41,7 +45,7 @@
       </div>
     </nav>
 
-    <section class="mt-48 px-6">
+    <section class="mt-48 px-6" id="home">
       <div class="container xl:w-9/12 mx-auto sm:px-4">
         <div class="flex flex-wrap items-center">
           <div class="xl:w-2/5 mx-auto text-md-start text-center sm:text-left">
@@ -55,7 +59,7 @@
       </div>
     </section>
 
-    <section class="py-6 px-6">
+    <section class="py-6 px-6" id="usages">
       <div class="container min-w-lg mx-auto sm:px-4">
         <div class="mb-5">
           <div class="col-auto text-center my-4">
@@ -252,7 +256,7 @@
           />
           <div class="flex justify-center mt-4">
             <loading-button
-                class="w-32 px-4 py-2 bg-secondary-0 hover:bg-secondary-500 text-gray-50 flex items-center gap-2 rounded-lg"
+                class="w-64 mb-2 mt-4 "
                 label="Envoyer" :is-loading="isLoading" @button-clicked="submitForm"/>
           </div>
         </v-form>
@@ -405,11 +409,11 @@ import LoadingButton from "../components/LoadingButton.vue";
 
 const router = useRouter();
 const {$crmApi} = useNuxtApp()
-const lastname = ref('de filippi');
-const firstname = ref('anthony');
-const email = ref('adefilippi@gmail.com');
-const subject = ref('Un test');
-const message = ref('Un test');
+const lastname = ref('');
+const firstname = ref('');
+const email = ref('');
+const subject = ref('');
+const message = ref('');
 const contactForm = ref(null);
 const isLoading = ref(false);
 const _errorMessage = ref('');
@@ -438,5 +442,13 @@ function submitForm() {
     }
   })
   isLoading.value = false;
+}
+function scrollTo(element, offset=130) {
+  const el = document.getElementById(element)
+  console.log(el.offsetTop)
+  window.scrollTo({
+    top: el.offsetTop + offset,
+    behavior: 'smooth'
+  })
 }
 </script>
